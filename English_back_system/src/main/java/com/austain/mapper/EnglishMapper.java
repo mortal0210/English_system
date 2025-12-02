@@ -31,4 +31,10 @@ public interface EnglishMapper {
 
     @Insert("insert into finally_again_word(word,chinese,pronounce,times,bookname) values(#{word},#{chinese},#{pronounce},#{times},#{bookname})")
     int finalAddAgainWord(AddRequest request);
+
+    /**
+     * 统计指定词书的总单词数，用于 /stats/books/{bookName}。
+     */
+    @Select("SELECT COUNT(*) FROM ${bookName}")
+    int countWordsByBook(@Param("bookName") String bookName);
 }

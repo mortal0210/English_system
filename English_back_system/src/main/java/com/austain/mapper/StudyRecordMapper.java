@@ -57,4 +57,10 @@ public interface StudyRecordMapper {
      */
     @Update("UPDATE ${table} SET already_reviewed = 0")
     void clearReviewed(@Param("table") String table);
+
+    /**
+     * 判断记录表是否存在，防止前端选择了还未创建的记录表时直接抛出 SQL 异常。
+     */
+    @Select("SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'english' AND TABLE_NAME = #{table}")
+    int existsTable(@Param("table") String table);
 }

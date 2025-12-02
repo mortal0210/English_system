@@ -342,3 +342,12 @@
 2025/09/19 19:52:17 [error] 15344#8368: CreateFile() "D:\develop\Environments-for-code\nginx-more\nginx-English/logs/nginx.pid" failed (2: The system cannot find the file specified)
 2025/09/19 19:53:55 [notice] 4440#21340: signal process started
 2025/09/19 22:15:41 [notice] 28496#25624: signal process started
+2025/12/02 22:36:11 [emerg] 14784#22736: CreateDirectory() "D:\code\GitHub\austain\English_system\nginx-English/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2025/12/02 22:36:24 [emerg] 8384#24080: CreateDirectory() "D:\code\GitHub\austain\English_system\nginx-English/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2025/12/02 22:39:21 [emerg] 23840#12048: CreateDirectory() "D:\code\GitHub\austain\English_system\nginx-English/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2025/12/02 22:40:23 [emerg] 25480#24900: CreateDirectory() "D:\code\GitHub\austain\English_system\nginx-English/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2025/12/02 22:40:34 [emerg] 11880#22960: CreateDirectory() "D:\code\GitHub\austain\English_system\nginx-English/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2025/12/02 22:40:47 [emerg] 25572#11420: CreateDirectory() "D:\code\GitHub\austain\English_system\nginx-English/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2025/12/02 22:41:04 [emerg] 22184#8140: CreateDirectory() "D:\code\GitHub\austain\English_system\nginx-English/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2025/12/02 22:41:39 [emerg] 25212#5704: CreateDirectory() "D:\code\GitHub\austain\English_system\nginx-English/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2025/12/02 22:52:49 [error] 12596#25580: *3 CreateFile() "D:\code\GitHub\austain\English_system\nginx-English/html/Generation.html" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /ArticleGeneration.html HTTP/1.1", host: "localhost", referrer: "http://localhost/"

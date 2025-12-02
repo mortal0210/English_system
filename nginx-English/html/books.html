@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择课本 - 英语词汇学习系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            margin: 30px 0 10px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.4rem;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            margin: 20px 0;
+        }
+
+        .book-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            width: 260px;
+            padding: 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .book-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .book-cover {
+            width: 110px;
+            height: 150px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            color: white;
+            font-size: 2.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .book-desc {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        .book-meta {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            color: #7f8c8d;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .back-home {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .back-home:hover {
+            background: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                gap: 18px;
+            }
+
+            .book-card {
+                width: 240px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .book-card {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-home" onclick="window.location.href = '/index.html';">← 返回首页</button>
+
+    <div class="header">
+        <h1>选择课本</h1>
+        <p>先选择一本课本，然后在课本内部使用背单词、游戏、选项练习等功能</p>
+    </div>
+
+    <div class="container" id="booksContainer">
+        <div class="loading">正在加载课本信息...</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('http://localhost:8080/list')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP错误! 状态: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.code !== 1 || !data.data || data.data.length === 0) {
+                        document.getElementById('booksContainer').innerHTML = '<div class="loading">暂无课本数据</div>';
+                        return;
+                    }
+
+                    const books = data.data;
+                    renderBooks(books);
+                })
+                .catch(error => {
+                    console.error('获取课本数据失败:', error);
+                    document.getElementById('booksContainer').innerHTML = '<div class="loading">数据加载失败，请检查网络连接</div>';
+                });
+
+            function renderBooks(books) {
+                const container = document.getElementById('booksContainer');
+                container.innerHTML = '';
+
+                books.forEach(book => {
+                    const wordCount = book.match(/\\d+/);
+                    const difficulty = wordCount && wordCount[0] > 500 ? '高级'
+                        : (wordCount && wordCount[0] > 300 ? '中级' : '初级');
+
+                    const bookCard = document.createElement('div');
+                    bookCard.className = 'book-card';
+                    bookCard.onclick = () => {
+                        window.location.href = `function?bookname=${encodeURIComponent(book)}`;
+                    };
+
+                    bookCard.innerHTML = `
+                        <div class="book-cover">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="book-title">${book}</h3>
+                        <p class="book-desc">全面的英语词汇学习资源，帮助您掌握${wordCount ? wordCount[0] : '500+'}个核心词汇</p>
+                        <div class="book-meta">
+                            <span>词汇量: ${wordCount ? wordCount[0] + '+' : '500+'}</span>
+                            <span>难度: ${difficulty}</span>
+                        </div>
+                    `;
+
+                    container.appendChild(bookCard);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+

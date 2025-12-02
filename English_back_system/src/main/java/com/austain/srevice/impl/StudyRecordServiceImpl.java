@@ -22,12 +22,21 @@ public class StudyRecordServiceImpl implements StudyRecordService {
 
     @Override
     public int addStudyRecord(String studyRecord,String table) {
+        // 如果表不存在，直接返回 0，避免 SQL 异常
+        if (studyRecordMapper.existsTable(table) == 0) {
+            return 0;
+        }
         return studyRecordMapper.addStudyRecord(studyRecord,table);
     }
 
     @Override
     @Transactional
     public List<RecordPO> getTodayList(String table) {
+        // 句子记录表、单词记录表等可能尚未创建，这里先做表存在性校验
+        if (studyRecordMapper.existsTable(table) == 0) {
+            // 返回空列表，前端会显示“今日暂无学习内容”的提示，而不是抛出错误
+            return new ArrayList<>();
+        }
         if (table.equals("daily_record")){          // 如果是日常记录表，则直接返回所有内容，不经过筛选
             System.out.println("我是直接返回日常所有");
             return studyRecordMapper.getTodayList(table);
@@ -64,6 +73,10 @@ public class StudyRecordServiceImpl implements StudyRecordService {
     @Override
     @Transactional
     public int markReviewed(List<String> ids,String  table) {
+        // 目标表不存在时也直接返回 0，避免 SQL 异常
+        if (studyRecordMapper.existsTable(table) == 0) {
+            return 0;
+        }
         if (ids.isEmpty()){  // 如果没有要标记的 ID，则将所有记录的 already_reviewed 字段设置为 0
             studyRecordMapper.clearReviewed(table);
             return 1;

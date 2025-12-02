@@ -13,6 +13,25 @@
             -webkit-tap-highlight-color: transparent;
         }
         
+        .back-home {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 1000;
+        }
+        
+        .back-home:hover {
+            background: #fff;
+        }
+        
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -363,6 +382,7 @@
     </style>
 </head>
 <body>
+    <button class="back-home" onclick="window.location.href = '/index.html';">← 返回首页</button>
     <div class="container">
         <div class="header">
             <h1><i class="fas fa-book-open"></i> 英语词汇背诵</h1>
@@ -514,7 +534,7 @@
                 
                 // 构建带参数的URL
                 // let url = `http://localhost:8080/english/recite?start=${startIndex}&end=${endIndex}`;
-                let url = `http://8.148.209.41:8080/english/recite?start=${startIndex}&end=${endIndex}`;
+                let url = `http://localhost:8080/english/recite?start=${startIndex}&end=${endIndex}`;
                 if (bookname) {
                     url += `&bookname=${encodeURIComponent(bookname)}`;
                 }

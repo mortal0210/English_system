@@ -13,6 +13,25 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        .back-home {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 1000;
+        }
+        
+        .back-home:hover {
+            background: #fff;
+        }
+        
         body {
             background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             min-height: 100vh;
@@ -198,6 +217,7 @@
     </style>
 </head>
 <body>
+    <button class="back-home" onclick="window.location.href = '/index.html';">← 返回首页</button>
     <div class="header">
         <h1>英语词汇学习系统</h1>
         <p>选择您需要的学习功能</p>
@@ -243,7 +263,7 @@
             
             // 检查课本是否存在
             // fetch(`http://localhost:8080/list/${encodeURIComponent(bookName)}`)
-            fetch(`http://8.148.209.41:8080/list/${encodeURIComponent(bookName)}`)
+            fetch(`http://localhost:8080/list/${encodeURIComponent(bookName)}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP错误! 状态: ${response.status}`);

@@ -10,220 +10,806 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             min-height: 100vh;
-            padding: 20px;
+            background: linear-gradient(135deg, #1a237e 0%, #283593 35%, #3949ab 70%, #e3f2fd 100%);
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #333;
-        }
-        
-        .header {
-            text-align: center;
-            margin: 30px 0;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-        }
-        
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
-            margin: 20px 0;
+            align-items: stretch;
+            padding: 0;
+            color: #111827;
         }
-        
-        .book-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            width: 280px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+
+        .shell {
+            width: 100%;
+            max-width: 100%;
+            min-height: 100vh;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 0;
+            box-shadow: none;
+            padding: 20px 32px 24px;
+            backdrop-filter: blur(16px);
             display: flex;
             flex-direction: column;
+            gap: 16px;
+        }
+
+        /* 顶部状态栏 */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            text-align: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            background: radial-gradient(circle at 20% 0, #e3f2fd, #1e88e5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            box-shadow: 0 10px 24px rgba(25, 118, 210, 0.55);
+            font-size: 18px;
+        }
+
+        .brand-text h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            color: #0f172a;
+        }
+
+        .brand-text span {
+            font-size: 0.82rem;
+            color: #64748b;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            color: #64748b;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .user-actions i {
+            padding: 8px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #4f46e5;
             cursor: pointer;
         }
-        
-        .book-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 10px 22px rgba(76, 81, 191, 0.5);
+            cursor: pointer;
         }
-        
-        .book-cover {
-            width: 120px;
-            height: 160px;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
+
+        /* 学习概览横条 */
+        .overview {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            padding: 10px 14px;
+            border-radius: 16px;
+            background: #eef2ff;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+        }
+
+        .overview-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+        }
+
+        .overview-icon {
+            width: 30px;
+            height: 30px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            color: white;
-            font-size: 2.5rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            font-size: 16px;
         }
-        
-        .book-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #2c3e50;
+
+        .overview-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .overview-label {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .overview-value {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        /* 主体布局 */
+        .main {
+            display: grid;
+            grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.2fr);
+            gap: 18px;
+            margin-top: 4px;
+        }
+
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title span {
+            font-size: 0.78rem;
+            color: #9ca3af;
+        }
+
+        /* 核心功能网格 */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px 14px;
+        }
+
+        .feature-card {
+            border-radius: 18px;
+            padding: 16px 15px 14px;
+            box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .feature-card.primary {
+            border: 1px solid rgba(59, 130, 246, 0.8);
+            background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 55%);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .feature-main {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .feature-title-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .feature-desc {
+            font-size: 0.78rem;
+            color: #6b7280;
+        }
+
+        .feature-tag {
+            font-size: 0.72rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(59, 130, 246, 0.08);
+            color: #2563eb;
+        }
+
+        .feature-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .feature-progress-label {
+            font-weight: 500;
+        }
+
+        .feature-progress-value {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .feature-status {
+            font-size: 0.78rem;
+            color: #9ca3af;
+        }
+
+        /* 辅助区域 */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .card {
+            border-radius: 18px;
+            padding: 14px 16px 16px;
+            background: #0f172a;
+            color: #e5e7eb;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 10px;
         }
-        
-        .book-desc {
-            color: #7f8c8d;
+
+        .card-title {
             font-size: 0.95rem;
-            margin-bottom: 20px;
-            flex-grow: 1;
+            font-weight: 600;
         }
-        
-        .book-meta {
-            width: 100%;
+
+        .card-subtitle {
+            font-size: 0.78rem;
+            color: #9ca3af;
+        }
+
+        .trend-chart {
+            margin-top: 6px;
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            height: 90px;
+        }
+
+        .trend-bar {
+            flex: 1;
+            border-radius: 6px 6px 2px 2px;
+            background: linear-gradient(180deg, #4f46e5 0%, #22c55e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trend-bar-inner {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: inherit;
+            background: linear-gradient(180deg, #4f46e5 0%, #22c55e 100%);
+        }
+
+        .trend-labels {
             display: flex;
             justify-content: space-between;
-            color: #7f8c8d;
+            margin-top: 6px;
+            font-size: 0.72rem;
+            color: #9ca3af;
+        }
+
+        .quick-actions {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn-primary-main {
+            border: none;
+            border-radius: 999px;
+            padding: 9px 16px;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #4ade80 100%);
+            color: #ecfdf5;
             font-size: 0.9rem;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 12px 30px rgba(22, 163, 74, 0.6);
+            transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
         }
-        
-        .loading {
-            text-align: center;
-            padding: 50px;
-            font-size: 1.2rem;
-            color: white;
+
+        .btn-primary-main:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
         }
-        
-        .footer {
-            margin-top: 40px;
-            color: white;
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.8;
+
+        .hint-text {
+            font-size: 0.78rem;
+            color: #9ca3af;
         }
-        
-        @media (max-width: 768px) {
-            .container {
-                gap: 20px;
+
+        .hint-highlight {
+            color: #e5e7eb;
+        }
+
+        .motivation {
+            font-size: 0.8rem;
+            color: #d1fae5;
+            margin-top: 6px;
+        }
+
+        /* 颜色定义 */
+        .bg-blue {
+            background: linear-gradient(135deg, #1e88e5, #42a5f5);
+        }
+
+        .bg-green {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+        }
+
+        .bg-purple {
+            background: linear-gradient(135deg, #7c3aed, #6366f1);
+        }
+
+        .bg-orange {
+            background: linear-gradient(135deg, #fb8c00, #f97316);
+        }
+
+        .bg-teal {
+            background: linear-gradient(135deg, #14b8a6, #0ea5e9);
+        }
+
+        .bg-pink {
+            background: linear-gradient(135deg, #ec4899, #f97316);
+        }
+
+        @media (max-width: 960px) {
+            body {
+                padding: 0;
             }
-            
-            .book-card {
-                width: 250px;
+
+            .shell {
+                padding: 14px 14px 18px;
+                border-radius: 0;
             }
-            
-            .header h1 {
-                font-size: 2.2rem;
+
+            .overview {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .main {
+                grid-template-columns: minmax(0, 1fr);
             }
         }
-        
-        @media (max-width: 576px) {
-            .book-card {
-                width: 100%;
-                max-width: 320px;
+
+        @media (max-width: 640px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
             }
-            
-            .header h1 {
-                font-size: 1.8rem;
+
+            .shell {
+                padding: 12px 10px 16px;
             }
-            
-            .header p {
-                font-size: 1rem;
+
+            .overview {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                padding-inline: 10px;
+            }
+
+            .feature-grid {
+                grid-template-columns: minmax(0, 1fr);
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>英语词汇学习系统</h1>
-        <p>选择课本开始您的英语学习之旅</p>
-    </div>
-    
-    <div class="container" id="booksContainer">
-        <div class="loading">正在加载课本信息...</div>
-    </div>
-    
-    <div class="footer">
-        <p>© 2023 英语词汇学习系统 | 提供全面的英语学习资源</p>
-    </div>
+    <main class="shell">
+        <!-- 顶部状态栏 -->
+        <header class="top-bar">
+            <div class="brand">
+                <div class="brand-logo">
+                    <i class="fas fa-language"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>英语词汇学习系统</h1>
+                    <span>为成人学习者设计的专业词汇训练平台</span>
+                </div>
+            </div>
+            <div class="user-menu">
+                <div class="user-actions">
+                    <i class="fas fa-bell"></i>
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="user-avatar">
+                    U
+                </div>
+            </div>
+        </header>
+
+        <!-- 学习概览 -->
+        <section class="overview" aria-label="overview">
+            <div class="overview-card">
+                <div class="overview-icon bg-blue">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="overview-text">
+                        <span class="overview-label">今日学习时长</span>
+                        <span class="overview-value" id="todayDuration">0 分钟</span>
+                </div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon bg-green">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="overview-text">
+                        <span class="overview-label">连续打卡天数</span>
+                        <span class="overview-value" id="streakDays">0 天</span>
+                </div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon bg-purple">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="overview-text">
+                        <span class="overview-label">已掌握词汇量</span>
+                        <span class="overview-value" id="masteredWords">0 词</span>
+                </div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon bg-orange">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <div class="overview-text">
+                        <span class="overview-label">本月目标完成率</span>
+                        <span class="overview-value" id="monthGoal">0%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 主体区域 -->
+        <section class="main">
+            <!-- 左侧：核心功能网格 -->
+            <div class="left-column">
+                <div class="section-title">
+                    核心学习功能
+                    <span>点击卡片即可进入对应模块</span>
+                </div>
+                <div class="feature-grid">
+                    <!-- 1.1 智能背词系统 -->
+                    <article class="feature-card primary" onclick="window.location.href = '/books.html';">
+                        <div class="feature-header">
+                            <div class="feature-main">
+                                <div class="feature-icon bg-blue">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="feature-title-text">
+                                    <span class="feature-name">智能背词系统</span>
+                                    <span class="feature-desc">按课本智能记忆</span>
+                                </div>
+                            </div>
+                            <span class="feature-tag">主推功能</span>
+                        </div>
+                        <div class="feature-footer">
+                            <div>
+                                <span class="feature-progress-label">今日任务：</span>
+                                <span class="feature-progress-value" id="taskWordsProgress">0 / 0</span>
+                            </div>
+                            <span class="feature-status">推荐先从这里开始</span>
+                        </div>
+                    </article>
+
+                    <!-- 1.2 词汇游戏中心 -->
+                    <article class="feature-card" onclick="window.location.href = '/game';">
+                        <div class="feature-header">
+                            <div class="feature-main">
+                                <div class="feature-icon bg-teal">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div class="feature-title-text">
+                                    <span class="feature-name">词汇游戏中心</span>
+                                    <span class="feature-desc">用游戏巩固词汇</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-footer">
+                            <div>
+                                <span class="feature-progress-label">今日任务：</span>
+                                <span class="feature-progress-value" id="gameProgress">0 / 0</span>
+                            </div>
+                            <span class="feature-status">泡泡/选项等多种玩法</span>
+                        </div>
+                    </article>
+
+                    <!-- 2.1 句子默写训练 -->
+                    <article class="feature-card" onclick="window.location.href = '/sentence.html';">
+                        <div class="feature-header">
+                            <div class="feature-main">
+                                <div class="feature-icon bg-purple">
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+                                <div class="feature-title-text">
+                                    <span class="feature-name">句子默写训练</span>
+                                    <span class="feature-desc">按译文默写句子</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-footer">
+                            <div>
+                                <span class="feature-progress-label">今日任务：</span>
+                                <span class="feature-progress-value" id="sentenceProgress">0 / 0</span>
+                            </div>
+                            <span class="feature-status">提高语感和表达</span>
+                        </div>
+                    </article>
+
+                    <!-- 2.2 单词默写训练 -->
+                    <article class="feature-card" onclick="window.location.href = '/worddictation.html';">
+                        <div class="feature-header">
+                            <div class="feature-main">
+                                <div class="feature-icon bg-orange">
+                                    <i class="fas fa-keyboard"></i>
+                                </div>
+                                <div class="feature-title-text">
+                                    <span class="feature-name">单词默写训练</span>
+                                    <span class="feature-desc">按释义拼单词</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-footer">
+                            <div>
+                                <span class="feature-progress-label">今日任务：</span>
+                                <span class="feature-progress-value" id="dictationProgress">0 / 0</span>
+                            </div>
+                            <span class="feature-status">检测拼写与记忆</span>
+                        </div>
+                    </article>
+
+                    <!-- 3.1 知识积累本 -->
+                    <article class="feature-card" onclick="window.location.href = '/jottings.html';">
+                        <div class="feature-header">
+                            <div class="feature-main">
+                                <div class="feature-icon bg-green">
+                                    <i class="fas fa-notes-medical"></i>
+                                </div>
+                                <div class="feature-title-text">
+                                    <span class="feature-name">知识积累本</span>
+                                    <span class="feature-desc">整理零散知识点</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-footer">
+                            <div>
+                                <span class="feature-progress-label">今日记录：</span>
+                                <span class="feature-progress-value" id="jottingProgress">0 条</span>
+                            </div>
+                            <span class="feature-status">结构化学习笔记</span>
+                        </div>
+                    </article>
+
+                    <!-- 3.2 学习记录与清单 -->
+                    <article class="feature-card" onclick="window.location.href = '/studyrecord.html';">
+                        <div class="feature-header">
+                            <div class="feature-main">
+                                <div class="feature-icon bg-pink">
+                                    <i class="fas fa-list-check"></i>
+                                </div>
+                                <div class="feature-title-text">
+                                    <span class="feature-name">学习记录清单</span>
+                                    <span class="feature-desc">管理每日学习记录</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-footer">
+                            <div>
+                                <span class="feature-progress-label">今日记录：</span>
+                                <span class="feature-progress-value" id="recordProgress">0 条</span>
+                            </div>
+                            <span class="feature-status">查看与复习学习清单</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- 右侧 / 底部：趋势与快速操作 -->
+            <aside class="right-column" aria-label="assist-panel">
+                <section class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">最近 7 天学习趋势</div>
+                            <div class="card-subtitle">以完成任务数量为单位</div>
+                        </div>
+                        <i class="fas fa-chart-line" style="color:#4ade80;"></i>
+                    </div>
+                    <div class="trend-chart" id="trendChart">
+                        <!-- 柱状图由 JS 填充高度 -->
+                    </div>
+                    <div class="trend-labels">
+                        <span>6 天前</span>
+                        <span>今天</span>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="btn-primary-main" onclick="window.location.href = '/books.html';">
+                            <i class="fas fa-play"></i>
+                            继续学习
+                        </button>
+                        <p class="hint-text">
+                            今日进度：<span class="hint-highlight" id="todaySummary">—</span>
+                        </p>
+                        <p class="motivation" id="motivationText">
+                            再坚持 15 分钟，你的词汇量就会和昨天不一样。
+                        </p>
+                    </div>
+                </section>
+            </aside>
+        </section>
+    </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 从后端获取课本列表
-            // fetch('http://localhost:8080/list')
-            fetch('http://8.148.209.41:8080/list')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP错误! 状态: ${response.status}`);
-                    }
-                    return response.json();
+        function formatNumber(n) {
+            return n.toLocaleString('zh-CN');
+        }
+
+        function initTrendChart(values) {
+            const container = document.getElementById('trendChart');
+            const data = Array.isArray(values) && values.length > 0 ? values : [0, 0, 0, 0, 0, 0, 0];
+            const max = Math.max(...data, 1);
+            container.innerHTML = '';
+            data.forEach(v => {
+                const bar = document.createElement('div');
+                bar.className = 'trend-bar';
+                const inner = document.createElement('div');
+                inner.className = 'trend-bar-inner';
+                inner.style.height = `${(v / max) * 100}%`;
+                bar.appendChild(inner);
+                container.appendChild(bar);
+            });
+        }
+
+        function loadOverview() {
+            fetch('http://localhost:8080/dashboard/overview')
+                .then(res => res.ok ? res.json() : Promise.reject(new Error('网络错误')))
+                .then(result => {
+                    if (result.code !== 1 || !result.data) return;
+                    const d = result.data;
+                    document.getElementById('todayDuration').textContent =
+                        `${d.todayDurationMinutes || 0} 分钟`;
+                    document.getElementById('streakDays').textContent =
+                        `${d.streakDays || 0} 天`;
+                    document.getElementById('masteredWords').textContent =
+                        `${formatNumber(d.masteredWords || 0)} 词`;
+                    document.getElementById('monthGoal').textContent =
+                        `${d.monthGoalCompletion || 0}%`;
                 })
-                .then(data => {
-                    if (data.code !== 1 || !data.data || data.data.length === 0) {
-                        document.getElementById('booksContainer').innerHTML = '<div class="loading">暂无课本数据</div>';
+                .catch(() => {});
+        }
+
+        function loadTasks() {
+            fetch('http://localhost:8080/dashboard/tasks/today')
+                .then(res => res.ok ? res.json() : Promise.reject(new Error('网络错误')))
+                .then(result => {
+                    if (result.code !== 1 || !result.data) return;
+                    const t = result.data;
+                    const words = t.wordStudy || {};
+                    const game = t.gameCenter || {};
+                    const sentence = t.sentenceDictation || {};
+                    const dictation = t.wordDictation || {};
+                    const jotting = t.jotting || {};
+                    const article = t.article || {};
+
+                    const wordsDone = words.done || 0;
+                    const wordsTotal = words.total || 0;
+                    const gameDone = game.done || 0;
+                    const gameTotal = game.total || 0;
+                    const sentenceDone = sentence.done || 0;
+                    const sentenceTotal = sentence.total || 0;
+                    const dictationDone = dictation.done || 0;
+                    const dictationTotal = dictation.total || 0;
+
+                    document.getElementById('taskWordsProgress').textContent =
+                        `${wordsDone} / ${wordsTotal}`;
+                    document.getElementById('gameProgress').textContent =
+                        `${gameDone} / ${gameTotal}`;
+                    document.getElementById('sentenceProgress').textContent =
+                        `${sentenceDone} / ${sentenceTotal}`;
+                    document.getElementById('dictationProgress').textContent =
+                        `${dictationDone} / ${dictationTotal}`;
+                    document.getElementById('jottingProgress').textContent =
+                        `${(jotting.done || 0)} 条`;
+                    // 记录模块使用 jotting 或单独统计均可，这里先与 jotting 保持一致
+                    document.getElementById('recordProgress').textContent =
+                        `${(jotting.done || 0)} 条`;
+
+                    const totalDone = wordsDone + gameDone + sentenceDone + dictationDone;
+                    const totalPlan = wordsTotal + gameTotal + sentenceTotal + dictationTotal;
+                    document.getElementById('todaySummary').textContent =
+                        totalPlan > 0
+                            ? `已完成 ${totalDone}/${totalPlan} 个任务`
+                            : '今日还没有学习任务';
+                })
+                .catch(() => {});
+        }
+
+        function loadTrend() {
+            fetch('http://localhost:8080/dashboard/trend?days=7')
+                .then(res => res.ok ? res.json() : Promise.reject(new Error('网络错误')))
+                .then(result => {
+                    if (result.code !== 1 || !Array.isArray(result.data)) {
+                        initTrendChart();
                         return;
                     }
-                    
-                    const books = data.data;
-                    renderBooks(books);
+                    const values = result.data.map(item => item.durationMinutes || 0);
+                    initTrendChart(values);
                 })
-                .catch(error => {
-                    console.error('获取课本数据失败:', error);
-                    document.getElementById('booksContainer').innerHTML = '<div class="loading">数据加载失败，请检查网络连接</div>';
+                .catch(() => {
+                    initTrendChart();
                 });
-                
-            function renderBooks(books) {
-                const container = document.getElementById('booksContainer');
-                container.innerHTML = '';
-                
-                books.forEach(book => {
-                    // 从书名中提取数字作为词汇量
-                    const wordCount = book.match(/\d+/);
-                    const difficulty = wordCount && wordCount[0] > 500 ? '高级' : (wordCount && wordCount[0] > 300 ? '中级' : '初级');
-                    
-                    const bookCard = document.createElement('div');
-                    bookCard.className = 'book-card';
-                    bookCard.onclick = () => {
-                        // 跳转到课本功能选择页，传递课本名称
-                        window.location.href = `function?bookname=${encodeURIComponent(book)}`; 
-                    };
-                    
-                    bookCard.innerHTML = `
-                        <div class="book-cover">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <h3 class="book-title">${book}</h3>
-                        <p class="book-desc">全面的英语词汇学习资源，帮助您掌握${wordCount ? wordCount[0] : '500+'}个核心词汇</p>
-                        <div class="book-meta">
-                            <span>词汇量: ${wordCount ? wordCount[0] + '+' : '500+'}</span>
-                            <span>难度: ${difficulty}</span>
-                        </div>
-                    `;
-                    
-                    container.appendChild(bookCard);
-                });
-            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadOverview();
+            loadTasks();
+            loadTrend();
         });
     </script>
 </body>
